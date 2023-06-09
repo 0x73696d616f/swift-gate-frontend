@@ -51,7 +51,7 @@ a {
 }
 
 .connect-btn {
-  color: #000;
+  color: #fff;
   font-size: 14px;
   background: #FEDA5E;
   border-radius: 15px;
@@ -71,7 +71,6 @@ a {
 .main-title {
   font-size: 90px;
   font-weight: 900;
-  font-style: italic;
   font-family: 'Montserrat', serif;
 }
 

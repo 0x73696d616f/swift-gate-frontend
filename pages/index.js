@@ -4,6 +4,9 @@ import React from "react";
 import { Bridge1Icon } from "../utils/bridge1icon";
 import { Bridge2Icon } from "../utils/bridge2icon";
 import { Bridge3Icon } from "../utils/bridge3icon";
+import abi from "../solidity-test-files/out/testContract.sol/testContractAbi.json";
+
+import { ethers } from "ethers";
 
 import NextLink from "next/link";
 import Link from "next/link";
@@ -16,8 +19,13 @@ const Index = () => {
     isConnected: false,
   });
 
-  const [selectedOrigin, setSelectedOrigin] = React.useState(new Set());
-  const [selectedDestination, setSelectedDestination] = React.useState(new Set());
+  const [selectedOrigin, setSelectedOrigin] = useState(new Set());
+  const [selectedDestination, setSelectedDestination] = useState(new Set());
+  
+  const [tokenAddress, setTokenAddress] = useState("");
+  const [tokenAmount, setTokenAmount] = useState("");
+  const [receiverAddress, setReceiverAddress] = useState("");
+  const [isSingleTransaction, setIsSingleTransaction] = useState(false);
 
   const selectedValueOrigin = React.useMemo(
     () => Array.from(selectedOrigin).join(", ").replaceAll("_", " "),
@@ -76,6 +84,54 @@ const Index = () => {
   useEffect(() => {
     checkConnection();
   }, []);
+
+  const handleTokenAddressChange = (event) => {
+    setTokenAddress(event.target.value);
+  };
+
+  const handleTokenAmountChange = (event) => {
+    setTokenAmount(event.target.value);
+  };
+
+  const handleReceiverAddressChange = (event) => {
+    setReceiverAddress(event.target.value);
+  };
+
+  const handleSingleTransactionChange = (checked) => {
+    setIsSingleTransaction(checked);
+  };
+
+  // Interact with smart contract
+
+  const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');
+  const contractAddress = "0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f";
+  const signer = provider.getSigner();
+
+  const contract = new ethers.Contract(contractAddress, abi, signer);
+
+  const handleBridgeButtonClick = async () => {
+    try {
+      const signer = provider.getSigner();
+      const senderAddress = await signer.getAddress();
+
+      // Make the contract call
+      const tx = await contract.testReceiveVariables(
+        tokenAmount,
+        tokenAddress, 
+        selectedOrigin, 
+        selectedDestination,
+        receiverAddress,
+        isSingleTransaction
+         );
+      await tx.wait();
+
+      console.log('Transaction successful!');
+    } catch (error) {
+      console.error('Error calling smart contract function:', error);
+    }
+  };
+
+
 
   return (
     <>
@@ -177,24 +233,24 @@ const Index = () => {
                 {/* Select token & amount */}
                 <Grid.Container justify="center" gap={2}>
                 <Grid>
-                  <Input labelLeft="Token Address" type="text" size="md" color="primary"  />     
+                  <Input labelLeft="Token Address" type="text" size="md" color="primary" value={tokenAddress} onChange={handleTokenAddressChange} />     
                 </Grid>
 
                 <Grid>
-                  <Input labelLeft="Token Amount" type="number" size="md" color="primary" />     
+                  <Input labelLeft="Token Amount" type="number" size="md" color="primary" value={tokenAmount} onChange={handleTokenAmountChange} />     
                 </Grid>
                 </Grid.Container>
 
                 {/* Select address of receiver and if it is a single transaction */}
                 <Grid.Container justify="center" gap={2}>
                 <Grid>
-                  <Input labelLeft="Receiver Address" type="text" size="md" color="primary"  />     
+                  <Input labelLeft="Receiver Address" type="text" size="md" color="primary" value={receiverAddress} onChange={handleReceiverAddressChange} />     
                 </Grid>
 
                 <Grid>
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <span style={{ marginRight: "8px" }}>Single Transaction</span>
-                    <Switch initialChecked checked={false} />
+                    <Switch initialChecked={isSingleTransaction} checked={isSingleTransaction} onChange={handleSingleTransactionChange} />
                 </div>
                 </Grid>
               </Grid.Container>
@@ -203,7 +259,12 @@ const Index = () => {
               {/* Go Button*/}
                 {showGoButton && (
                   <div className="go-button">
-                    <Button auto color="primary" css={{ px: "$13" }}>
+                    <Button 
+                    auto 
+                    color="primary" 
+                    css={{ px: "$13" } }
+                    onPress={handleBridgeButtonClick}
+                    >
                       Bridge
                     </Button>
                   </div>
