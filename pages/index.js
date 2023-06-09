@@ -189,15 +189,15 @@ const Index = () => {
                         selectedKeys={selectedOrigin}
                         onSelectionChange={setSelectedOrigin}>
                         <Dropdown.Item 
-                          key="Origin: bridge 1"
+                          key=" : bridge 1"
                           icon={<Bridge1Icon size={22} fill="var(--nextui-colors-secondary)" />}
                          ><NextLink href="/">bridge 1</NextLink></Dropdown.Item>
                         <Dropdown.Item 
-                          key="Origin: bridge 2"
+                          key=" : bridge 2"
                           icon={<Bridge2Icon size={22} fill="var(--nextui-colors-secondary)" />}
                           ><NextLink href="/">bridge 2</NextLink></Dropdown.Item>
                         <Dropdown.Item 
-                          key="Origin: bridge 3"
+                          key=" : bridge 3"
                           icon={<Bridge3Icon size={22} fill="var(--nextui-colors-secondary)" />}
                           ><NextLink href="/">bridge 3</NextLink></Dropdown.Item>
                       </Dropdown.Menu>
@@ -213,15 +213,15 @@ const Index = () => {
                         selectedKeys={selectedDestination}
                         onSelectionChange={setSelectedDestination}>
                         <Dropdown.Item 
-                          key="bridge 1"
+                          key=" : bridge 1"
                           icon={<Bridge1Icon size={22} fill="var(--nextui-colors-secondary)" />}
                          ><NextLink href="/">bridge 1</NextLink></Dropdown.Item>
                         <Dropdown.Item 
-                          key="Origin: bridge 2"
+                          key=" : bridge 2"
                           icon={<Bridge2Icon size={22} fill="var(--nextui-colors-secondary)" />}
                           ><NextLink href="/">bridge 2</NextLink></Dropdown.Item>
                         <Dropdown.Item 
-                          key="Origin: bridge 3"
+                          key=" : bridge 3"
                           icon={<Bridge3Icon size={22} fill="var(--nextui-colors-secondary)" />}
                           ><NextLink href="/">bridge 3</NextLink></Dropdown.Item>
                       </Dropdown.Menu>
