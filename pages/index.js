@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Dropdown, Button, Checkbox, Input } from "@nextui-org/react";
+import { Dropdown, Button, Switch, Input, Grid } from "@nextui-org/react";
 import React from "react";
 import { Bridge1Icon } from "../utils/bridge1icon";
 import { Bridge2Icon } from "../utils/bridge2icon";
@@ -119,9 +119,12 @@ const Index = () => {
             ) : client.isConnected ? (
               <>
                 <br />
-                <h2>You're connected ✅</h2>
-                <div className="bridge-dropdowns-container" style={{ marginTop: "20px",  marginBottom: "20px" }}>
+                You're connected ✅
+
+                {/* Select bridges */}
+                <Grid.Container gap={2} justify="center">
                   <div className="bridge-dropdowns">
+                  <Grid>
                     <Dropdown>
                       <Dropdown.Button auto color="secondary">Origin Chain {selectedValueOrigin}</Dropdown.Button>
                       <Dropdown.Menu 
@@ -143,7 +146,9 @@ const Index = () => {
                           ><NextLink href="/">bridge 3</NextLink></Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
+                    </Grid>
 
+                    <Grid>
                     <Dropdown>
                       <Dropdown.Button auto color="secondary">Destination Chain {selectedValueDestination}</Dropdown.Button>
                       <Dropdown.Menu 
@@ -165,13 +170,37 @@ const Index = () => {
                           ><NextLink href="/">bridge 3</NextLink></Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
+                    </Grid>
                   </div>
+                </Grid.Container>
+
+                {/* Select token & amount */}
+                <Grid.Container justify="center" gap={2}>
+                <Grid>
+                  <Input labelLeft="Token Address" type="text" size="md" color="primary"  />     
+                </Grid>
+
+                <Grid>
+                  <Input labelLeft="Token Amount" type="number" size="md" color="primary" />     
+                </Grid>
+                </Grid.Container>
+
+                {/* Select address of receiver and if it is a single transaction */}
+                <Grid.Container justify="center" gap={2}>
+                <Grid>
+                  <Input labelLeft="Receiver Address" type="text" size="md" color="primary"  />     
+                </Grid>
+
+                <Grid>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <span style={{ marginRight: "8px" }}>Single Transaction</span>
+                    <Switch initialChecked checked={false} />
                 </div>
-                <div className="checkbox">
-                <Checkbox color = "primary" labelColor = "primary" size="xs">Single Transaction</Checkbox>
-                </div>
-                <div className = "input">
-                <Input label="Amount" type="number" size="sm" color="primary" /></div>
+                </Grid>
+              </Grid.Container>
+
+
+              {/* Go Button*/}
                 {showGoButton && (
                   <div className="go-button">
                     <Button auto color="primary" css={{ px: "$13" }}>
@@ -195,20 +224,17 @@ const Index = () => {
       </section>
 
       <style jsx>{`
-        .bridge-dropdowns-container {
-          display: flex;
-          justify-content: center;
-          gap: 10px;
-        }
-        
         .bridge-dropdowns {
           display: flex;
-          gap: 10px;
         }
 
         .go-button {
           display: flex;
           justify-content: center;
+          gap: 10px;
+        }
+
+        .gap {
           gap: 10px;
         }
       `}</style>
