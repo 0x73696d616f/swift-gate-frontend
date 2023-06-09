@@ -14,6 +14,7 @@ body {
   color: #fff;
   max-height: 100vh;
   overflow: hidden;
+  background: url('/background.png');
 }
 
 a {
@@ -34,8 +35,6 @@ a {
 
 .fren-nav {
   padding: 20px 30px;
-  background: url('/stars.png');
-
 }
 
 .btn {
