@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { dropdownOptions } from "../utils/dropdownOptions";
-import { Dropdown } from "@nextui-org/react";
+import { Dropdown, Button, Loading } from "@nextui-org/react";
 import React from "react";
 import { Bridge1Icon } from "../utils/bridge1icon";
 import { Bridge2Icon } from "../utils/bridge2icon";
@@ -17,12 +16,12 @@ const Index = () => {
     isConnected: false,
   });
 
-  const [selectedOrigin, setSelectedOrigin] = React.useState(new Set(["Origin Bridge"]));
-  const [selectedDestination, setSelectedDestination] = React.useState(new Set(["Destination Bridge"]));
+  const [selectedOrigin, setSelectedOrigin] = React.useState(new Set());
+  const [selectedDestination, setSelectedDestination] = React.useState(new Set());
 
   const selectedValueOrigin = React.useMemo(
     () => Array.from(selectedOrigin).join(", ").replaceAll("_", " "),
-    [selectedOrigin]
+    [selectedOrigin],
   );
 
   const selectedValueDestination = React.useMemo(
@@ -72,6 +71,7 @@ const Index = () => {
     }
   };
 
+  const showGoButton = selectedOrigin.size > 0 && selectedDestination.size > 0;
 
   useEffect(() => {
     checkConnection();
@@ -120,10 +120,10 @@ const Index = () => {
               <>
                 <br />
                 <h2>You're connected ✅</h2>
-                <div className="bridge-dropdowns-container" style={{ marginTop: "20px" }}>
+                <div className="bridge-dropdowns-container" style={{ marginTop: "20px",  marginBottom: "20px" }}>
                   <div className="bridge-dropdowns">
                     <Dropdown>
-                      <Dropdown.Button auto color="secondary">{selectedValueOrigin}</Dropdown.Button>
+                      <Dropdown.Button auto color="secondary">Origin Chain {selectedValueOrigin}</Dropdown.Button>
                       <Dropdown.Menu 
                         aria-label="OriginActions"
                         selectionMode="single"
@@ -145,14 +145,14 @@ const Index = () => {
                     </Dropdown>
 
                     <Dropdown>
-                      <Dropdown.Button auto color="secondary">{selectedValueDestination}</Dropdown.Button>
+                      <Dropdown.Button auto color="secondary">Destination Chain {selectedValueDestination}</Dropdown.Button>
                       <Dropdown.Menu 
                         aria-label="DestinationActions"
                         selectionMode="single"
                         selectedKeys={selectedDestination}
                         onSelectionChange={setSelectedDestination}>
                         <Dropdown.Item 
-                          key="Origin: bridge 1"
+                          key="bridge 1"
                           icon={<Bridge1Icon size={22} fill="var(--nextui-colors-secondary)" />}
                          ><NextLink href="/">bridge 1</NextLink></Dropdown.Item>
                         <Dropdown.Item 
@@ -167,6 +167,14 @@ const Index = () => {
                     </Dropdown>
                   </div>
                 </div>
+
+                {showGoButton && (
+                  <div className="go-button">
+                    <Button auto color="primary" css={{ px: "$13" }}>
+                      Bridge
+                    </Button>
+                  </div>
+                )}
               </>
             ) : (
               <>
@@ -175,6 +183,7 @@ const Index = () => {
                   Connect Wallet
                 </button>
               </>
+              
             )}
           </p>
           {/* ---- */}
@@ -190,6 +199,12 @@ const Index = () => {
         
         .bridge-dropdowns {
           display: flex;
+          gap: 10px;
+        }
+
+        .go-button {
+          display: flex;
+          justify-content: center;
           gap: 10px;
         }
       `}</style>
