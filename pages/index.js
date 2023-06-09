@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Dropdown, Button, Checkbox } from "@nextui-org/react";
+import { Dropdown, Button, Checkbox, Input } from "@nextui-org/react";
 import React from "react";
 import { Bridge1Icon } from "../utils/bridge1icon";
 import { Bridge2Icon } from "../utils/bridge2icon";
@@ -167,9 +167,11 @@ const Index = () => {
                     </Dropdown>
                   </div>
                 </div>
-                <div>
+                <div className="checkbox">
                 <Checkbox color = "primary" labelColor = "primary" size="xs">Single Transaction</Checkbox>
                 </div>
+                <div className = "input">
+                <Input label="Amount" type="number" size="sm" color="primary" /></div>
                 {showGoButton && (
                   <div className="go-button">
                     <Button auto color="primary" css={{ px: "$13" }}>
