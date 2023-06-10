@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Dropdown, Button, Switch, Input, Grid, Loading } from "@nextui-org/react";
+import { Progress, Dropdown, Button, Switch, Input, Grid, Loading } from "@nextui-org/react";
 import React from "react";
 import Image from 'next/image';
 import optimismLogo from '../public/logos/optimism-ethereum-op-logo.png';
@@ -31,6 +31,7 @@ const Index = () => {
   const [tokenAmount, setTokenAmount] = useState("");
   const [receiverAddress, setReceiverAddress] = useState("");
   const [isSingleTransaction, setIsSingleTransaction] = useState(false);
+  const [isTxRunning, setTxRunning] = useState(false);
 
   const selectedValueOrigin = React.useMemo(
     () => Array.from(selectedOrigin).join(", ").replaceAll("_", " "),
@@ -84,11 +85,9 @@ const Index = () => {
     }
   };
 
-  const showGoButton = selectedOrigin.size > 0 && selectedDestination.size > 0;
-
   useEffect(() => {
     checkConnection();
-  }, []);
+  }, [isTxRunning]);
 
   const handleTokenAddressChange = (event) => {
     setTokenAddress(event.target.value);
@@ -114,6 +113,8 @@ const Index = () => {
       const accounts = await ethereum.request({ method: "eth_accounts" });
 
       if (accounts.length <= 0) return;
+      setTxRunning(true);
+
       // Connect to provider
       const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -139,6 +140,8 @@ const Index = () => {
       await tx.wait();
 
       console.log('Transaction successful!');
+      setTxRunning(false);
+
     } catch (error) {
       console.error('Error calling smart contract function:', error);
     }
@@ -150,7 +153,7 @@ const Index = () => {
     if (typeof window === undefined) return;
     const accounts = await ethereum.request({ method: "eth_accounts" });
     if (accounts.length <= 0) return;
-
+    setTxRunning(true);
     // Connect to provider
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -166,7 +169,7 @@ const Index = () => {
     console.log("Sending Transaction");
     const tx = await token.faucet();
     await tx.wait();
-
+    setTxRunning(false);
   };
 
 
@@ -174,6 +177,16 @@ const Index = () => {
     <>
       {/* Navbar */}
       <nav className="fren-nav d-flex">
+        {isTxRunning &&
+          <div  style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
+          }}><Loading color="secondary" textColor="secondary" size="xl" type="points"> Waiting for transaction</Loading></div>
+        }
         <div className="d-flex" style={{ marginLeft: "auto" }}>
 
           <Grid.Container gap={2}>
@@ -201,6 +214,12 @@ const Index = () => {
             <Grid>
               <div>
                 <Button color="secondary" as="a" href="https://github.com/0x73696d616f/swift-gate-contracts/tree/master/docs/src/src" auto>Docs</Button>
+              </div>
+            </Grid>
+
+            <Grid>
+              <div>
+                <Button color="secondary" as="a" href="https://github.com/0x73696d616f/swift-gate-contracts/blob/master/README.md" auto>Token Addr List</Button>
               </div>
             </Grid>
           </Grid.Container>
@@ -428,9 +447,8 @@ const Index = () => {
                   </Grid>
                 </Grid.Container>
 
-
-
               </>
+
             ) : (
               <>
                 <br />
