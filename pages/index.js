@@ -213,7 +213,7 @@ const Index = () => {
 
             <Grid>
               <div>
-                <Button color="secondary" as="a" href="https://github.com/0x73696d616f/swift-gate-contracts/tree/master/docs/src/src" auto>Docs</Button>
+                <Button color="secondary" as="a" href="https://0x73696d616f.github.io/swift-gate-contracts/index.html" auto>Docs</Button>
               </div>
             </Grid>
 
