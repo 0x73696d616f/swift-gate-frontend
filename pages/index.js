@@ -221,7 +221,7 @@ const Index = () => {
           </h1>
 
           <p className="main-desc">
-            Bridge your assets between different chains with minimal cost. 
+            Bridge your assets between different chains with minimal cost.
             <br />
           </p>
 
@@ -289,7 +289,7 @@ const Index = () => {
                               />
                             }                          ><NextLink href="/">Mantle</NextLink></Dropdown.Item>
                           <Dropdown.Item
-                            key=" : Gnosis"
+                            key=" : Chiado"
                             icon={
                               <Image
                                 width={20}
@@ -298,7 +298,7 @@ const Index = () => {
                                 alt="Gnosis Logo"
                                 objectFit="cover"
                               />
-                            }                          ><NextLink href="/">Gnosis</NextLink></Dropdown.Item>
+                            }                          ><NextLink href="/">Chiado</NextLink></Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
                     </Grid>
@@ -357,16 +357,16 @@ const Index = () => {
                               />
                             }                          ><NextLink href="/">Mantle</NextLink></Dropdown.Item>
                           <Dropdown.Item
-                            key=" : Gnosis"
+                            key=" : Chiado"
                             icon={
                               <Image
                                 width={20}
                                 height={20}
                                 src={gnosisLogo}
-                                alt="Gnosis Logo"
+                                alt="Chiado Logo"
                                 objectFit="cover"
                               />
-                            }                          ><NextLink href="/">Gnosis</NextLink></Dropdown.Item>
+                            }                          ><NextLink href="/">Chiado</NextLink></Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
                     </Grid>
@@ -474,7 +474,7 @@ function getChainIdSwiftGate(str) {
       value = "1";
       break;
 
-    case " : Gnosis":
+    case " : Chiado":
       value = "3";
       break;
     case " : Scroll":
