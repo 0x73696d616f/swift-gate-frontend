@@ -15,7 +15,8 @@ body {
   height: 100vh;
   overflow: hidden;
   background: url('/background.png');
-  background-size: cover;
+  background: url('/background.png') no-repeat center center fixed;
+  background-size: 100% 100%;
 }
 
 a {
