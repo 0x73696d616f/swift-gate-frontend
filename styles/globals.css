@@ -12,7 +12,7 @@ body {
   background-color: #1a181f;
   background-color: #000;
   color: #fff;
-  max-height: 100vh;
+  height: 100vh;
   overflow: hidden;
   background: url('/background.png');
   background-size: cover;
