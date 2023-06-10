@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import { Dropdown, Button, Switch, Input, Grid } from "@nextui-org/react";
 import React from "react";
-import { Bridge1Icon } from "../utils/bridge1icon";
-import { Bridge2Icon } from "../utils/bridge2icon";
-import { Bridge3Icon } from "../utils/bridge3icon";
-import abi from "../solidity-test-files/out/testContract.sol/testContractAbi.json";
+import Image from 'next/image';
+import optimismLogo from '../public/logos/optimism-ethereum-op-logo.png';
+import taikoLogo from '../public/logos/taiko.png';
+import gnosisLogo from '../public/logos/gnosis.png';
+import scrollLogo from '../public/logos/scroll.png';
+import mantleLogo from '../public/logos/mantle.jpg';
+import swiftGateLogo from '../public/logos/swiftGateLogo.png';
+
+//import abi from "../solidity-test-files/out/testContract.sol/testContractAbi.json";
 
 import { ethers } from "ethers";
 
@@ -103,11 +108,11 @@ const Index = () => {
 
   // Interact with smart contract
 
-  const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');
-  const contractAddress = "0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f";
-  const signer = provider.getSigner();
+  //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');
+  //const contractAddress = "0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f";
+  //const signer = provider.getSigner();
 
-  const contract = new ethers.Contract(contractAddress, abi, signer);
+  //const contract = new ethers.Contract(contractAddress, abi, signer);
 
   const handleBridgeButtonClick = async () => {
     try {
@@ -139,7 +144,7 @@ const Index = () => {
       <nav className="fren-nav d-flex">
         <div className="d-flex" style={{ marginLeft: "auto" }}>
           <div>
-            <button className="btn connect-btn" onClick={connectWeb3}>
+            <Button className="btn connect-btn" color = "secondary" onClick={connectWeb3}>
               {client.isConnected ? (
                 <>
                   {client.address.slice(0, 4)}...
@@ -148,11 +153,11 @@ const Index = () => {
               ) : (
                 <>Connect Wallet</>
               )}
-            </button>
+            </Button>
           </div>
           <div>
             <Link href="https://twitter.com/threesigma_xyz">
-              <button className="btn tw-btn">TW</button>
+              <Button className="btn tw-btn" color = "secondary">Twitter</Button>
             </Link>
           </div>
         </div>
@@ -161,7 +166,14 @@ const Index = () => {
 
       <section className="container d-flex">
         <main>
-          <h1 className="main-title">SwiftGate ⛩️</h1>
+          <h1 className="main-title">SwiftGate <Image
+                            width={80}
+                            height={80}  
+                            src= {swiftGateLogo}
+                            alt="SwiftGate Logo"
+                            objectFit="cover"
+                          />
+                        </h1>
 
           <p className="main-desc">
             SwiftGate is a bridging protocol that allows users to bridge their assets between different chains with minimal costs. 
@@ -189,17 +201,61 @@ const Index = () => {
                         selectedKeys={selectedOrigin}
                         onSelectionChange={setSelectedOrigin}>
                         <Dropdown.Item 
-                          key=" : bridge 1"
-                          icon={<Bridge1Icon size={22} fill="var(--nextui-colors-secondary)" />}
-                         ><NextLink href="/">bridge 1</NextLink></Dropdown.Item>
+                          key=" : Optimism"
+                          icon={
+                            <Image
+                            width={20}
+                            height={20}  
+                            src= {optimismLogo}
+                            alt="Optimism Logo"
+                            objectFit="cover"
+                          />
+                        }
+                         ><NextLink href="/">Optimism</NextLink></Dropdown.Item>
                         <Dropdown.Item 
-                          key=" : bridge 2"
-                          icon={<Bridge2Icon size={22} fill="var(--nextui-colors-secondary)" />}
-                          ><NextLink href="/">bridge 2</NextLink></Dropdown.Item>
+                          key=" : Taiko"
+                          icon={
+                            <Image
+                            width={20}
+                            height={20}  
+                            src= {taikoLogo}
+                            alt="Taiko Logo"
+                            objectFit="cover"
+                          />
+                        }                          ><NextLink href="/">Taiko</NextLink></Dropdown.Item>
                         <Dropdown.Item 
-                          key=" : bridge 3"
-                          icon={<Bridge3Icon size={22} fill="var(--nextui-colors-secondary)" />}
-                          ><NextLink href="/">bridge 3</NextLink></Dropdown.Item>
+                          key=" : Scroll"
+                          icon={
+                            <Image
+                            width={20}
+                            height={20}  
+                            src= {scrollLogo}
+                            alt="Scroll Logo"
+                            objectFit="cover"
+                          />
+                        }                          ><NextLink href="/">Scroll</NextLink></Dropdown.Item>
+                        <Dropdown.Item 
+                          key=" : Mantle"
+                          icon={
+                            <Image
+                            width={20}
+                            height={20}  
+                            src= {mantleLogo}
+                            alt="Mantle Logo"
+                            objectFit="cover"
+                          />
+                        }                          ><NextLink href="/">Mantle</NextLink></Dropdown.Item>
+                      <Dropdown.Item 
+                          key=" : Gnosis"
+                          icon={
+                            <Image
+                            width={20}
+                            height={20}  
+                            src= {gnosisLogo}
+                            alt="Gnosis Logo"
+                            objectFit="cover"
+                          />
+                        }                          ><NextLink href="/">Gnosis</NextLink></Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                     </Grid>
@@ -212,18 +268,62 @@ const Index = () => {
                         selectionMode="single"
                         selectedKeys={selectedDestination}
                         onSelectionChange={setSelectedDestination}>
+                                                <Dropdown.Item 
+                          key=" : Optimism"
+                          icon={
+                            <Image
+                            width={20}
+                            height={20}  
+                            src= {optimismLogo}
+                            alt="Optimism Logo"
+                            objectFit="cover"
+                          />
+                        }
+                         ><NextLink href="/">Optimism</NextLink></Dropdown.Item>
                         <Dropdown.Item 
-                          key=" : bridge 1"
-                          icon={<Bridge1Icon size={22} fill="var(--nextui-colors-secondary)" />}
-                         ><NextLink href="/">bridge 1</NextLink></Dropdown.Item>
+                          key=" : Taiko"
+                          icon={
+                            <Image
+                            width={20}
+                            height={20}  
+                            src= {taikoLogo}
+                            alt="Taiko Logo"
+                            objectFit="cover"
+                          />
+                        }                          ><NextLink href="/">Taiko</NextLink></Dropdown.Item>
                         <Dropdown.Item 
-                          key=" : bridge 2"
-                          icon={<Bridge2Icon size={22} fill="var(--nextui-colors-secondary)" />}
-                          ><NextLink href="/">bridge 2</NextLink></Dropdown.Item>
+                          key=" : Scroll"
+                          icon={
+                            <Image
+                            width={20}
+                            height={20}  
+                            src= {scrollLogo}
+                            alt="Scroll Logo"
+                            objectFit="cover"
+                          />
+                        }                          ><NextLink href="/">Scroll</NextLink></Dropdown.Item>
                         <Dropdown.Item 
-                          key=" : bridge 3"
-                          icon={<Bridge3Icon size={22} fill="var(--nextui-colors-secondary)" />}
-                          ><NextLink href="/">bridge 3</NextLink></Dropdown.Item>
+                          key=" : Mantle"
+                          icon={
+                            <Image
+                            width={20}
+                            height={20}  
+                            src= {mantleLogo}
+                            alt="Mantle Logo"
+                            objectFit="cover"
+                          />
+                        }                          ><NextLink href="/">Mantle</NextLink></Dropdown.Item>
+                      <Dropdown.Item 
+                          key=" : Gnosis"
+                          icon={
+                            <Image
+                            width={20}
+                            height={20}  
+                            src= {gnosisLogo}
+                            alt="Gnosis Logo"
+                            objectFit="cover"
+                          />
+                        }                          ><NextLink href="/">Gnosis</NextLink></Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                     </Grid>
@@ -250,7 +350,7 @@ const Index = () => {
                 <Grid>
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <span style={{ marginRight: "8px" }}>Single Transaction</span>
-                    <Switch initialChecked={isSingleTransaction} checked={isSingleTransaction} onChange={handleSingleTransactionChange} />
+                    <Switch initialChecked={false} color= "secondary" onChange={handleSingleTransactionChange} />
                 </div>
                 </Grid>
               </Grid.Container>
@@ -261,7 +361,7 @@ const Index = () => {
                   <div className="go-button">
                     <Button 
                     auto 
-                    color="primary" 
+                    color="secondary" 
                     css={{ px: "$13" } }
                     onPress={handleBridgeButtonClick}
                     >
