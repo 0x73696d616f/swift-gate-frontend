@@ -219,7 +219,7 @@ const Index = () => {
 
             <Grid>
               <div>
-                <Button color="secondary" as="a" href="https://github.com/0x73696d616f/swift-gate-contracts/blob/master/README.md" auto>Token Addr List</Button>
+                <Button color="secondary" as="a" href="https://github.com/0x73696d616f/SwiftGate#mintable-token-for-testing" auto>Token Addr List</Button>
               </div>
             </Grid>
           </Grid.Container>
